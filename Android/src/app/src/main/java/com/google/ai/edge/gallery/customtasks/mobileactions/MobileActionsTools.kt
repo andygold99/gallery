@@ -22,7 +22,7 @@ import com.google.ai.edge.litertlm.ToolSet
 
 private const val TAG = "AGMATools"
 
-class MobileActionsTools(val onFunctionCalled: (Action) -> Unit) : ToolSet {
+class MobileActionsTools(val onFunctionCalled: (Action) -> String) : ToolSet {
   /** Turns on flashlight. */
   @Tool(description = "Turns the flashlight on")
   fun turnOnFlashlight(): Map<String, String> {
@@ -131,4 +131,16 @@ class MobileActionsTools(val onFunctionCalled: (Action) -> Unit) : ToolSet {
 
     return mapOf("result" to "success", "datetime" to datetime, "title" to title)
   }
+/** Gets the current battery percentage. */
+@Tool(description = "Gets the phone's current battery percentage.")
+fun getBatteryPercentage(): Map<String, String> {
+    Log.d(TAG, "Get battery percentage")
+
+    val percentage = onFunctionCalled(GetBatteryPercentageAction())
+
+    return mapOf(
+        "result" to "success",
+        "battery_percentage" to percentage,
+    )
+}
 }
