@@ -53,6 +53,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import android.os.BatteryManager
 
 private const val TAG = "AGMAViewModel"
 
@@ -261,6 +262,9 @@ constructor(@ApplicationContext private val appContext: Context) : ViewModel() {
       is CreateCalendarEventAction ->
         createCalendarEvent(context = context, datetime = action.datetime, title = action.title)
 
+      // Get battery percentage.
+      is GetBatteryPercentageAction ->     getBatteryPercentage(context = context)
+
       else -> ""
     }
   }
@@ -412,4 +416,13 @@ constructor(@ApplicationContext private val appContext: Context) : ViewModel() {
 
     return ""
   }
+private fun getBatteryPercentage(context: Context): String {
+    val batteryManager =
+        context.getSystemService(Context.BATTERY_SERVICE) as BatteryManager
+
+    val percentage =
+        batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)
+
+    return percentage.toString()
+}
 }
