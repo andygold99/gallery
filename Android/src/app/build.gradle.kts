@@ -33,11 +33,11 @@ android {
   compileSdk { this.version = release(37) { minorApiLevel = 0 } }
 
   defaultConfig {
-    applicationId = "com.google.aiedge.gallery"
+    applicationId = "com.andygold.aiedge.gallery"
     minSdk = 31
     targetSdk = 37
     versionCode = 45
-    versionName = "1.0.20"
+    versionName = "1.0.20-andygold"
 
     // Needed for HuggingFace auth workflows.
     // Use the scheme of the "Redirect URLs" in HuggingFace app.
