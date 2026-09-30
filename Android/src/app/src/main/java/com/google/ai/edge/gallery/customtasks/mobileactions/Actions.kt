@@ -24,6 +24,7 @@ import androidx.compose.material.icons.outlined.Map
 import androidx.compose.material.icons.outlined.PersonAdd
 import androidx.compose.material.icons.outlined.Wifi
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.material.icons.outlined.BatteryStd
 
 // Supported action types.
 enum class ActionType {
@@ -34,6 +35,7 @@ enum class ActionType {
   ACTION_SHOW_LOCATION_ON_MAP,
   ACTION_OPEN_WIFI_SETTINGS,
   ACTION_CREATE_CALENDAR_EVENT,
+  ACTION_GET_BATTERY_PERCENTAGE,
 }
 
 data class FunctionCallDetails(
@@ -137,3 +139,14 @@ class CreateCalendarEventAction(val datetime: String, val title: String) :
         parameters = listOf(Pair("datetime", datetime), Pair("title", title)),
       ),
   )
+// Action to get the current battery percentage.
+class GetBatteryPercentageAction() :
+    Action(
+        type = ActionType.ACTION_GET_BATTERY_PERCENTAGE,
+        icon = Icons.Outlined.BatteryStd,
+        functionCallDetails =
+            FunctionCallDetails(
+                functionName = "getBatteryPercentage",
+                parameters = listOf(),
+            ),
+    )
