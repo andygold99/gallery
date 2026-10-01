@@ -1,0 +1,28 @@
+name: Generate Android Signing Key
+
+on:
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Generate signing key
+        run: |
+          keytool -genkeypair \
+            -keystore gallery-release.jks \
+            -alias gallery \
+            -keyalg RSA \
+            -keysize 4096 \
+            -validity 10000 \
+            -storepass "${{ secrets.TEMP_KEYSTORE_PASSWORD }}" \
+            -keypass "${{ secrets.TEMP_KEYSTORE_PASSWORD }}" \
+            -dname "CN=Andrew AI Edge Gallery"
+
+      - name: Upload signing key
+        uses: actions/upload-artifact@v4
+        with:
+          name: gallery-release-key
+          path: gallery-release.jks
+          retention-days: 1
